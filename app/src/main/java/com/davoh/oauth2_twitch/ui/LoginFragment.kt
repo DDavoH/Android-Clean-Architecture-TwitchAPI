@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
             val responseType = "code"
             val redirectUri = "http://localhost"
 
-            val url = "https://id.twitch.tv/oauth2/authorize?response_type=${responseType}&client_id=1tdrqc3epx025bimv640owygxn5vaq&redirect_uri=${redirectUri}&scope=viewing_activity_read&state=c3ab8aa609ea11e793ae92361f002671"
+            val url = "https://id.twitch.tv/oauth2/authorize?response_type=${responseType}&client_id=1tdrqc3epx025bimv640owygxn5vaq&redirect_uri=${redirectUri}&scope=viewing_activity_read%20user:read:email&state=c3ab8aa609ea11e793ae92361f002671"
             launchCustomWebTab(Uri.parse(url))
         }
     }

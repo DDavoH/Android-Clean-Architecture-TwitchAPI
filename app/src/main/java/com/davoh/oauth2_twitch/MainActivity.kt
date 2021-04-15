@@ -1,5 +1,6 @@
 package com.davoh.oauth2_twitch
 
+import android.content.Context
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.net.Uri
@@ -8,16 +9,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.davoh.oauth2_twitch.constants.Constants
 import com.davoh.oauth2_twitch.databinding.ActivityMainBinding
 import com.davoh.oauth2_twitch.di.MainApplication
 import com.davoh.oauth2_twitch.framework.TwitchOAuth2
 import com.davoh.oauth2_twitch.framework.responses.AccessTokenResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,8 +70,15 @@ class MainActivity : AppCompatActivity() {
 
             call.enqueue(object : Callback<AccessTokenResponse> {
                 override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>) {
-                    //binding.tvTest.text = response.body()?.accessToken
-                    navController.navigate(R.id.topGamesFragment)
+                    if(response.isSuccessful && response.body()?.accessToken!=null){
+                        val sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                            with (sharedPref.edit()) {
+                                putString(Constants.sharedPrefs_AccessToken, response.body()?.accessToken)
+                                putString(Constants.sharedPrefs_RefreshToken, response.body()?.refreshToken)
+                                apply()
+                            }
+                            navController.navigate(R.id.topGamesFragment)
+                    }
                 }
 
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
