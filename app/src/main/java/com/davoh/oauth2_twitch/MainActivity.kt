@@ -1,23 +1,16 @@
 package com.davoh.oauth2_twitch
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_SYSTEM
-import androidx.browser.customtabs.CustomTabsServiceConnection
 import com.davoh.oauth2_twitch.databinding.ActivityMainBinding
 import com.davoh.oauth2_twitch.di.MainApplication
-import com.davoh.oauth2_twitch.framework.AccessToken
 import com.davoh.oauth2_twitch.framework.TwitchOAuth2
+import com.davoh.oauth2_twitch.framework.responses.AccessTokenResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,12 +63,12 @@ class MainActivity : AppCompatActivity() {
                     "authorization_code",
                     "http://localhost")
 
-            call.enqueue(object : Callback<AccessToken> {
-                override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
+            call.enqueue(object : Callback<AccessTokenResponse> {
+                override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>) {
                     binding.tvTest.text = response.body()?.accessToken
                 }
 
-                override fun onFailure(call: Call<AccessToken>, t: Throwable) {
+                override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
 
                 }
             })

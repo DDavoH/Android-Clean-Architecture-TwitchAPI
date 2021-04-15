@@ -1,7 +1,7 @@
 package com.davoh.oauth2_twitch.framework
 
+import com.davoh.oauth2_twitch.framework.responses.AccessTokenResponse
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -16,7 +16,7 @@ interface TwitchOAuth2 {
                  @Field("client_secret") clientSecret: String,
                  @Field("code") code: String,
                  @Field("grant_type") grantType: String,
-                 @Field("redirect_uri") redirectUri: String): Call<AccessToken>
+                 @Field("redirect_uri") redirectUri: String): Call<AccessTokenResponse>
 
     companion object {
         private const val BASE_URL = "https://id.twitch.tv/"

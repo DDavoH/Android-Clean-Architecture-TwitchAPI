@@ -1,11 +1,11 @@
-package com.davoh.oauth2_twitch.framework
+package com.davoh.oauth2_twitch.framework.responses
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AccessToken(
+data class AccessTokenResponse(
     @SerializedName("access_token")
     val accessToken:String,
     @SerializedName("expires_in")

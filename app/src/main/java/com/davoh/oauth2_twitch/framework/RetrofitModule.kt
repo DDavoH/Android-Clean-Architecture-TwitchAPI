@@ -13,5 +13,11 @@ class RetrofitModule {
         return TwitchOAuth2.create()
     }
 
+    @Singleton
+    @Provides
+    fun providesTwitchAPI():TwitchAPI{
+        return TwitchAPI.create()
+    }
+
 
 }
