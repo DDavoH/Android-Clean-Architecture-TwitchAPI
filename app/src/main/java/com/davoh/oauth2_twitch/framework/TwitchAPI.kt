@@ -7,17 +7,22 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface TwitchAPI {
 
     @GET("games/top")
-    fun getTopGames():Call<TopGamesResponse>
+    fun getTopGames(
+        @Header("Authorization") authHeader: String,
+        @Header("Client-Id") clientId: String
+    ): Call<TopGamesResponse>
 
 
     companion object {
         private const val BASE_URL = "https://api.twitch.tv/helix/"
         fun create(): TwitchAPI {
-            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            val logger =
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)

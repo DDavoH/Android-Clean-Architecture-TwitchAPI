@@ -24,8 +24,6 @@ import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
-    @Inject
-    lateinit var twitchOAuth2: TwitchOAuth2
 
     private var _binding : FragmentLoginBinding ?= null
     private val binding get() = _binding!!
