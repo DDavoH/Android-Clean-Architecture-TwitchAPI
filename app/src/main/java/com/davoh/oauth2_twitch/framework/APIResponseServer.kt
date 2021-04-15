@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class StoreToken(
-    @SerializedName("response_type")
-    val responseType:String,
-    @SerializedName("client_id")
-    val clientId:String,
-    @SerializedName("redirect_uri")
-    val redirectURI:String,
+data class AccessToken(
+    @SerializedName("access_token")
+    val accessToken:String,
+    @SerializedName("expires_in")
+    val expiresIn: Int,
+    @SerializedName("refresh_token")
+    val refreshToken:String,
     @SerializedName("scope")
-    val scope:String,
-    @SerializedName("state")
-    val state:String
+    val scopeList:List<String>,
+    @SerializedName("token_type")
+    val tokenType:String
 ):Parcelable

@@ -6,28 +6,33 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
+import retrofit2.http.*
 
 interface TwitchOAuth2 {
-    @GET("oauth2/authorize")
-    fun getToken(@Body storeToken: StoreToken): Call<ResponseBody>
 
-    companion object{
+    @POST("oauth2/token")
+    @FormUrlEncoded
+    fun getToken(@Field("client_id") clientId: String,
+                 @Field("client_secret") clientSecret: String,
+                 @Field("code") code: String,
+                 @Field("grant_type") grantType: String,
+                 @Field("redirect_uri") redirectUri: String): Call<AccessToken>
+
+    companion object {
         private const val BASE_URL = "https://id.twitch.tv/"
-        fun create(): TwitchOAuth2{
-            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        fun create(): TwitchOAuth2 {
+            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
             val client = OkHttpClient.Builder()
-                .addInterceptor(logger)
-                .build()
+                    .addInterceptor(logger)
+                    .build()
 
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(TwitchOAuth2::class.java)
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(TwitchOAuth2::class.java)
         }
     }
 }
