@@ -14,7 +14,8 @@ interface TwitchAPI {
     @GET("games/top")
     fun getTopGames(
         @Header("Authorization") authHeader: String,
-        @Header("Client-Id") clientId: String
+        @Header("Client-Id") clientId: String,
+        @Header("after") after:String = ""
     ): Call<TopGamesResponse>
 
 

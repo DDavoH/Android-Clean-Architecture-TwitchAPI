@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.davoh.oauth2_twitch.R
+import com.davoh.oauth2_twitch.adapters.TopGamesAdapter
 import com.davoh.oauth2_twitch.constants.Constants
 import com.davoh.oauth2_twitch.databinding.FragmentTopGamesBinding
 import com.davoh.oauth2_twitch.di.MainApplication
 import com.davoh.oauth2_twitch.framework.TwitchAPI
+import com.davoh.oauth2_twitch.framework.mappers.toDomainGameList
 import com.davoh.oauth2_twitch.framework.responses.TopGamesResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,6 +53,28 @@ class TopGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().applicationContext as MainApplication).getComponent().injectContext(this)
+
+        //RecyclerView
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rv.layoutManager = layoutManager
+        val adapter = TopGamesAdapter()
+        binding.rv.adapter = adapter
+        binding.rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = layoutManager.itemCount
+                val visibleItemCount = layoutManager.childCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                if (visibleItemCount + lastVisibleItem + 5 >= totalItemCount) {
+                    val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                    val accessToken = sharedPref.getString(Constants.sharedPrefs_AccessToken, "").toString()
+                    val refreshToken = sharedPref.getString(Constants.sharedPrefs_RefreshToken, "").toString()
+                    val newcall = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id, )
+                }
+            }
+        })
+
         binding.btnLogOut.setOnClickListener {
             findNavController().navigate(R.id.action_topGamesFragment_to_loginFragment)
         }
@@ -61,7 +87,8 @@ class TopGamesFragment : Fragment() {
                 call: Call<TopGamesResponse>,
                 response: Response<TopGamesResponse>
             ) {
-                        Toast.makeText(requireContext(), response.body()?.gameList.toString(),Toast.LENGTH_LONG).show()
+                val gameList = response.body()?.gameList?.toDomainGameList()
+                adapter.submitList(gameList)
             }
 
             override fun onFailure(call: Call<TopGamesResponse>, t: Throwable) {

@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val uri = intent.data
         if (uri != null && uri.toString().startsWith("http://localhost")) {
             val code = uri.getQueryParameter("code")
-            Toast.makeText(this,"$code",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"hola $code",Toast.LENGTH_LONG).show()
             val call = twitchOAuth2.getToken(Constants.client_id,
                 Constants.client_secret,
                 code.toString(),
