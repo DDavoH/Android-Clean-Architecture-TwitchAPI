@@ -1,6 +1,7 @@
 package com.davoh.oauth2_twitch.framework.mappers
 
-import com.davoh.oauth2_twitch.domain.model.Game
+
+import com.davoh.oauth2_twitch.domain.Game
 import com.davoh.oauth2_twitch.framework.responses.GameResponse
 
 fun List<GameResponse>.toDomainGameList(): List<Game> = this.map {
