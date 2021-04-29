@@ -5,8 +5,9 @@ import com.davoh.oauth2_twitch.data.TopGamesRepository
 import com.davoh.oauth2_twitch.domain.AccessToken
 import com.davoh.oauth2_twitch.domain.Game
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GetTopGamesUseCase(
+class GetTopGamesUseCase (
     private val topGamesRepository: TopGamesRepository
 ){
     fun invoke(authHeader: String,

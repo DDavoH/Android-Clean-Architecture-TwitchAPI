@@ -11,12 +11,12 @@ import dagger.Provides
 class RepositoryModule {
 
     @Provides
-    fun topGamesRepositoryProvider(
+    fun providesTopGamesRepository(
         remoteTopGamesDataSource: RemoteTopGamesDataSource
     ) = TopGamesRepository(remoteTopGamesDataSource)
 
     @Provides
-    fun oAuth2TwitchRepositoryProvider(
+    fun providesOAuth2TwitchRepository(
         remoteOAuth2TwitchDataSource: RemoteOAuth2TwitchDataSource
     ) = OAuth2TwitchRepository(remoteOAuth2TwitchDataSource)
 

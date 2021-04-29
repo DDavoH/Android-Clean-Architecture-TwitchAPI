@@ -8,9 +8,9 @@ import com.davoh.oauth2_twitch.presentation.utils.Event
 import com.davoh.oauth2_twitch.usecases.GetAccessTokenUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import com.davoh.oauth2_twitch.presentation.AccessTokenNavigation.*
-import javax.inject.Inject
 
-class AccessTokenViewModel @Inject constructor(
+
+class AccessTokenViewModel(
     private val getAccessTokenUseCase: GetAccessTokenUseCase
 ) : ViewModel() {
 

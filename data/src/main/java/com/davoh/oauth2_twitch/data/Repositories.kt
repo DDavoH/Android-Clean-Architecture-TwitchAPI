@@ -3,6 +3,7 @@ package com.davoh.oauth2_twitch.data
 import com.davoh.oauth2_twitch.domain.AccessToken
 import com.davoh.oauth2_twitch.domain.Game
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
 class TopGamesRepository(
     private val remoteTopGamesDataSource: RemoteTopGamesDataSource
