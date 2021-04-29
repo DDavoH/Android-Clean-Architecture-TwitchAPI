@@ -10,16 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.fragment.findNavController
-import com.davoh.oauth2_twitch.R
 import com.davoh.oauth2_twitch.databinding.FragmentLoginBinding
-import com.davoh.oauth2_twitch.framework.TwitchOAuth2
-import com.davoh.oauth2_twitch.framework.responses.AccessTokenResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import javax.inject.Inject
 
 
 class LoginFragment : Fragment() {

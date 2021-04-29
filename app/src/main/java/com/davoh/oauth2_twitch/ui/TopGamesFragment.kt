@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +15,6 @@ import com.davoh.oauth2_twitch.adapters.TopGamesAdapter
 import com.davoh.oauth2_twitch.constants.Constants
 import com.davoh.oauth2_twitch.databinding.FragmentTopGamesBinding
 import com.davoh.oauth2_twitch.di.MainApplication
-import com.davoh.oauth2_twitch.framework.TwitchAPI
-import com.davoh.oauth2_twitch.framework.mappers.toDomainGameList
-import com.davoh.oauth2_twitch.framework.responses.TopGamesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,8 +25,6 @@ class TopGamesFragment : Fragment() {
     private var _binding : FragmentTopGamesBinding?=null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var twitchAPI: TwitchAPI
 
     override fun onStart() {
         super.onStart()
@@ -52,7 +46,7 @@ class TopGamesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as MainApplication).getComponent().injectContext(this)
+        (requireActivity().applicationContext as MainApplication).appComponent.inject(this)
 
         //RecyclerView
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -70,7 +64,7 @@ class TopGamesFragment : Fragment() {
                     val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
                     val accessToken = sharedPref.getString(Constants.sharedPrefs_AccessToken, "").toString()
                     val refreshToken = sharedPref.getString(Constants.sharedPrefs_RefreshToken, "").toString()
-                    val newcall = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id, )
+                    //val newcall = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id, )
                 }
             }
         })
@@ -81,7 +75,7 @@ class TopGamesFragment : Fragment() {
         val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val accessToken = sharedPref.getString(Constants.sharedPrefs_AccessToken, "").toString()
         val refreshToken = sharedPref.getString(Constants.sharedPrefs_RefreshToken, "").toString()
-        val call = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id)
+        /*val call = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id)
         call.enqueue(object: Callback<TopGamesResponse> {
             override fun onResponse(
                 call: Call<TopGamesResponse>,
@@ -94,7 +88,7 @@ class TopGamesFragment : Fragment() {
             override fun onFailure(call: Call<TopGamesResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "failure",Toast.LENGTH_LONG).show()
             }
-        })
+        })*/
     }
 
     override fun onDestroyView() {

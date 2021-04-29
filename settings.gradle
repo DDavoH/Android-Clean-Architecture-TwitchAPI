@@ -1,3 +1,6 @@
+include ':usecases'
+include ':framework:requestmanager'
+include ':framework'
 include ':data'
 include ':domain'
 include ':app'

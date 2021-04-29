@@ -35,10 +35,13 @@ android {
 
 dependencies {
 
+    implementation project(":domain")
+
     implementation kotlinLib
     implementation ktxLib
     implementation appCompatLib
 
+    implementation rxJavaLib
 
     testImplementation jUnitLib
     androidTestImplementation jUnitAndroidTest

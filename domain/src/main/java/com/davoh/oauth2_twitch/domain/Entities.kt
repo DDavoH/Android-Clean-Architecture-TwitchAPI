@@ -5,3 +5,11 @@ data class Game (
     val name:String,
     val urlImage:String
 )
+
+data class AccessToken(
+val accessToken:String,
+val expiresIn: Int,
+val refreshToken:String,
+val scopeList:List<String>,
+val tokenType:String
+)

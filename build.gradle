@@ -59,6 +59,14 @@ ext{
     //Logging HTTP
     retrofitLogginInterceptorLib = 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
+    //Reactive Streams
+    reactiveStreamsLib = "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.2.0"
+
+    //Rx
+    rxAndroidLib = 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    rxJavaLib = 'io.reactivex.rxjava3:rxjava:3.0.0'
+    retrofitAdapterRxJavaLib = 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
     //CustomTabs
     browserLib = "androidx.browser:browser:1.3.0"
 
