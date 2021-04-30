@@ -10,11 +10,10 @@ import dagger.Subcomponent
 class AccessTokenModule {
 
     @Provides
-    fun characterListViewModelProvider(
+    fun accessTokenViewModelProvider(
         getAccessTokenUseCase: GetAccessTokenUseCase
-    ) = AccessTokenViewModel(
-        getAccessTokenUseCase
-    )
+    ) = AccessTokenViewModel(getAccessTokenUseCase)
+
 }
 
 @Subcomponent(modules = [(AccessTokenModule::class)])

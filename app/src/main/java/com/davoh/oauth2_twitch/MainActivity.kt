@@ -15,11 +15,11 @@ import com.davoh.oauth2_twitch.databinding.ActivityMainBinding
 import com.davoh.oauth2_twitch.di.AccessTokenComponent
 import com.davoh.oauth2_twitch.di.AccessTokenModule
 import com.davoh.oauth2_twitch.di.MainApplication
-import com.davoh.oauth2_twitch.presentation.AccessTokenNavigation
-import com.davoh.oauth2_twitch.presentation.AccessTokenNavigation.*
 import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel
 import com.davoh.oauth2_twitch.presentation.utils.Event
 import com.davoh.oauth2_twitch.utils.getViewModel
+import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel.AccessTokenNavigation.*
+import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel.*
 
 class MainActivity : AppCompatActivity() {
 

@@ -7,8 +7,7 @@ import com.davoh.oauth2_twitch.domain.AccessToken
 import com.davoh.oauth2_twitch.presentation.utils.Event
 import com.davoh.oauth2_twitch.usecases.GetAccessTokenUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import com.davoh.oauth2_twitch.presentation.AccessTokenNavigation.*
-
+import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel.AccessTokenNavigation.*
 
 class AccessTokenViewModel(
     private val getAccessTokenUseCase: GetAccessTokenUseCase
@@ -51,14 +50,16 @@ class AccessTokenViewModel(
         _events.value = Event(HideLoading)
     }
 
+    sealed class AccessTokenNavigation{
+        data class ShowAccessTokenError(val error:Throwable) : AccessTokenNavigation()
+        data class ShowAccessToken(val token:AccessToken): AccessTokenNavigation()
+        object HideLoading : AccessTokenNavigation()
+        object ShowLoading : AccessTokenNavigation()
+    }
+
+
 
 }
 
-sealed class AccessTokenNavigation{
-    data class ShowAccessTokenError(val error:Throwable) : AccessTokenNavigation()
-    data class ShowAccessToken(val token:AccessToken): AccessTokenNavigation()
-    object HideLoading : AccessTokenNavigation()
-    object ShowLoading : AccessTokenNavigation()
-}
 
 
