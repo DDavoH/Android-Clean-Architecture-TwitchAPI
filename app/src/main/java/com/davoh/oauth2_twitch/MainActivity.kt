@@ -3,7 +3,6 @@ package com.davoh.oauth2_twitch
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController

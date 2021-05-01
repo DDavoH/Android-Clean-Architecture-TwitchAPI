@@ -14,17 +14,26 @@ import com.davoh.oauth2_twitch.R
 import com.davoh.oauth2_twitch.adapters.TopGamesAdapter
 import com.davoh.oauth2_twitch.constants.Constants
 import com.davoh.oauth2_twitch.databinding.FragmentTopGamesBinding
-import com.davoh.oauth2_twitch.di.MainApplication
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import javax.inject.Inject
+import com.davoh.oauth2_twitch.di.*
+import com.davoh.oauth2_twitch.presentation.TopGamesListViewModel
+import com.davoh.oauth2_twitch.presentation.TopGamesListViewModel.TopGamesNavigation
+import com.davoh.oauth2_twitch.presentation.TopGamesListViewModel.TopGamesNavigation.*
+import com.davoh.oauth2_twitch.utils.getViewModel
+import androidx.lifecycle.Observer
+import com.davoh.oauth2_twitch.presentation.utils.Event
+
 
 
 class TopGamesFragment : Fragment() {
     private var _binding : FragmentTopGamesBinding?=null
     private val binding get() = _binding!!
 
+    private lateinit var topGamesComponent: TopGamesComponent
+    private val topGamesListViewModel: TopGamesListViewModel by lazy {
+        getViewModel { topGamesComponent.topGamesListViewModel }
+    }
+
+    private val adapter = TopGamesAdapter()
 
     override fun onStart() {
         super.onStart()
@@ -47,12 +56,13 @@ class TopGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        topGamesComponent = (requireActivity().applicationContext as MainApplication).appComponent.inject(TopGamesModule())
 
         //RecyclerView
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rv.layoutManager = layoutManager
-        val adapter = TopGamesAdapter()
         binding.rv.adapter = adapter
+
         binding.rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -75,20 +85,33 @@ class TopGamesFragment : Fragment() {
         val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val accessToken = sharedPref.getString(Constants.sharedPrefs_AccessToken, "").toString()
         val refreshToken = sharedPref.getString(Constants.sharedPrefs_RefreshToken, "").toString()
-        /*val call = twitchAPI.getTopGames("Bearer $accessToken", Constants.client_id)
-        call.enqueue(object: Callback<TopGamesResponse> {
-            override fun onResponse(
-                call: Call<TopGamesResponse>,
-                response: Response<TopGamesResponse>
-            ) {
-                val gameList = response.body()?.gameList?.toDomainGameList()
-                adapter.submitList(gameList)
+
+        topGamesListViewModel.getTopGames("Bearer $accessToken", Constants.client_id, "")
+        topGamesListViewModel.events.observe(viewLifecycleOwner, Observer(this::validateEvents))
+    }
+
+    private fun validateEvents(event: Event<TopGamesNavigation>?) {
+        event?.getContentIfNotHandled()?.let { navigation ->
+            when(navigation){
+                is ShowTopGamesError->navigation.run{
+                    Toast.makeText(
+                        requireContext(),
+                        "Error -> ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ShowTopGamesList -> navigation.run{
+                    adapter.submitList(gameList)
+                }
+                HideLoading -> {
+
+                }
+                ShowLoading -> {
+
+                }
             }
 
-            override fun onFailure(call: Call<TopGamesResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "failure",Toast.LENGTH_LONG).show()
-            }
-        })*/
+        }
     }
 
     override fun onDestroyView() {

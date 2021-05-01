@@ -14,6 +14,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(module: AccessTokenModule): AccessTokenComponent
+    fun inject(module:TopGamesModule):TopGamesComponent
 
     @Component.Factory
     interface Factory {

@@ -9,7 +9,7 @@ import com.davoh.oauth2_twitch.usecases.GetAccessTokenUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel.AccessTokenNavigation.*
 
-class AccessTokenViewModel(
+class AccessTokenViewModel (
     private val getAccessTokenUseCase: GetAccessTokenUseCase
 ) : ViewModel() {
 
