@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import com.davoh.oauth2_twitch.presentation.AccessTokenViewModel.AccessTokenNavigation.*
 
 class AccessTokenViewModel (
-    private val getAccessTokenUseCase: GetAccessTokenUseCase
+    private val getAccessTokenUseCase: GetAccessTokenUseCase,
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()

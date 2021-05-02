@@ -40,6 +40,7 @@ ext{
     appCompatLib = 'androidx.appcompat:appcompat:1.2.0'
     materialLib = 'com.google.android.material:material:1.3.0'
     constraintLayoutLib = 'androidx.constraintlayout:constraintlayout:2.0.4'
+    swipeRefreshLib = 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     //Dagger II
     daggerLib = 'com.google.dagger:dagger:2.31.2'

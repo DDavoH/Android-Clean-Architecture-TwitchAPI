@@ -6,4 +6,5 @@ object APIConstants {
 
     const val ENDPOINT_GAMES = "games/top"
     const val ENDPOINT_OAUTH2= "oauth2/token"
+    const val ENDPOINT_OAUTH2_REVOKE ="oauth2/revoke"
 }

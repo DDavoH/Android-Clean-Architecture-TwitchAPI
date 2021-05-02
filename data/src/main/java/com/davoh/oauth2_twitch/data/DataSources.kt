@@ -1,13 +1,16 @@
 package com.davoh.oauth2_twitch.data
 
 import com.davoh.oauth2_twitch.domain.AccessToken
-import com.davoh.oauth2_twitch.domain.Game
+import com.davoh.oauth2_twitch.domain.TopGames
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface RemoteTopGamesDataSource{
-    fun getTopGames(authHeader: String,
+    fun getTopGames( authHeader: String,
                      clientId: String,
-                     after:String = ""): Single<List<Game>>
+                     after: String,
+                     before:String,
+                     first:Int): Single<TopGames>
 }
 
 interface RemoteOAuth2TwitchDataSource{
@@ -16,4 +19,7 @@ interface RemoteOAuth2TwitchDataSource{
                  code: String,
                  grantType: String,
                  redirectUri: String): Single<AccessToken>
+
+    fun revokeToken(clientId:String,
+    token:String): Completable
 }

@@ -1,17 +1,19 @@
 package com.davoh.oauth2_twitch.data
 
 import com.davoh.oauth2_twitch.domain.AccessToken
-import com.davoh.oauth2_twitch.domain.Game
+import com.davoh.oauth2_twitch.domain.TopGames
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
 class TopGamesRepository(
     private val remoteTopGamesDataSource: RemoteTopGamesDataSource
 ) {
-    fun getTopGames( authHeader: String,
+    fun getTopGames(authHeader: String,
                      clientId: String,
-                     after: String): Single<List<Game>> =
-        remoteTopGamesDataSource.getTopGames(authHeader,clientId, after)
+                     after: String,
+                     before:String,
+                    first:Int): Single<TopGames> =
+        remoteTopGamesDataSource.getTopGames(authHeader,clientId, after,before,first)
 }
 
 class OAuth2TwitchRepository(
@@ -23,4 +25,8 @@ class OAuth2TwitchRepository(
                  grantType: String,
                  redirectUri: String): Single<AccessToken> =
         remoteOAuth2TwitchDataSource.getToken(clientId, clientSecret, code, grantType, redirectUri)
+
+    fun revokeToken(clientId:String,
+    token:String): Completable =
+        remoteOAuth2TwitchDataSource.revokeToken(clientId, token)
 }

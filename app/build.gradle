@@ -49,6 +49,7 @@ dependencies {
     implementation appCompatLib
     implementation materialLib
     implementation constraintLayoutLib
+    implementation swipeRefreshLib
 
     //Navigation Component
     implementation navigationLib
