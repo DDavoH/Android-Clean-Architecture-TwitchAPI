@@ -68,7 +68,7 @@ class TopGamesFragment : Fragment() {
         topGamesComponent = (requireActivity().applicationContext as MainApplication).appComponent.inject(TopGamesModule())
         accessTokenComponent = (requireActivity().applicationContext as MainApplication).appComponent.inject(AccessTokenModule())
 
-        topGamesListViewModel.events.observe(viewLifecycleOwner, Observer(this::validateEvents))
+        topGamesListViewModel.events.observe(viewLifecycleOwner, Observer(this::validateTopGamesEvents))
         revokeAccessTokenViewModel.events.observe(viewLifecycleOwner,Observer(this::validateAccessTokenEvents))
 
         //RecyclerView
@@ -110,7 +110,7 @@ class TopGamesFragment : Fragment() {
         topGamesListViewModel.getTopGames("Bearer $accessToken", Constants.client_id, "", "")
     }
 
-    private fun validateEvents(event: Event<TopGamesNavigation>?) {
+    private fun validateTopGamesEvents(event: Event<TopGamesNavigation>?) {
         event?.getContentIfNotHandled()?.let { navigation ->
             when(navigation){
                 is ShowTopGamesError->navigation.run{
