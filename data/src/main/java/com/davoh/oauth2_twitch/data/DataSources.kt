@@ -1,6 +1,7 @@
 package com.davoh.oauth2_twitch.data
 
 import com.davoh.oauth2_twitch.domain.AccessToken
+import com.davoh.oauth2_twitch.domain.RefreshToken
 import com.davoh.oauth2_twitch.domain.TopGames
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -22,4 +23,9 @@ interface RemoteOAuth2TwitchDataSource{
 
     fun revokeToken(clientId:String,
     token:String): Completable
+
+    fun refreshToken(grantType: String,
+                     refreshToken:String,
+                     clientId:String,
+                     clientSecret:String):Single<RefreshToken>
 }

@@ -22,3 +22,9 @@ val refreshToken:String,
 val scopeList:List<String>,
 val tokenType:String
 )
+
+data class RefreshToken(
+    val accessToken: String,
+    val refreshToken: String,
+    val scopeList:List<String>
+)

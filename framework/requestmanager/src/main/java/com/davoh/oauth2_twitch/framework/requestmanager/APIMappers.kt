@@ -1,9 +1,6 @@
 package com.davoh.oauth2_twitch.framework.requestmanager
 
-import com.davoh.oauth2_twitch.domain.AccessToken
-import com.davoh.oauth2_twitch.domain.Game
-import com.davoh.oauth2_twitch.domain.Pagination
-import com.davoh.oauth2_twitch.domain.TopGames
+import com.davoh.oauth2_twitch.domain.*
 
 fun TopGamesResponse.toDomainGameList(): List<Game> = this.gameList.toDomainGameList()
 
@@ -25,5 +22,7 @@ fun TopGamesResponse.toDomainTopGames(): TopGames {
     val paginationDomain = Pagination(pagination.cursor)
     return TopGames(topGameList,paginationDomain)
 }
+
+fun RefreshTokenResponse.toDomainRefreshToken(): RefreshToken = RefreshToken(accessToken,refreshToken, scopeList)
 
 

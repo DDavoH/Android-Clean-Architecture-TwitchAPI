@@ -18,6 +18,16 @@ data class AccessTokenResponse(
     val tokenType:String
 ): Parcelable
 
+@Parcelize
+data class RefreshTokenResponse(
+    @SerializedName("access_token")
+    val accessToken:String,
+    @SerializedName("refresh_token")
+    val refreshToken:String,
+    @SerializedName("scope")
+    val scopeList:List<String>
+):Parcelable
+
 
 @Parcelize
 data class TopGamesResponse(

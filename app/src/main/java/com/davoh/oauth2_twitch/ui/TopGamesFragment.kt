@@ -21,6 +21,9 @@ import com.davoh.oauth2_twitch.presentation.TopGamesListViewModel.TopGamesNaviga
 import com.davoh.oauth2_twitch.presentation.TopGamesListViewModel.TopGamesNavigation.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.davoh.oauth2_twitch.presentation.RefreshAccessTokenViewModel
+import com.davoh.oauth2_twitch.presentation.RefreshAccessTokenViewModel.RefreshAccessTokenNavigation
+import com.davoh.oauth2_twitch.presentation.RefreshAccessTokenViewModel.RefreshAccessTokenNavigation.*
 import com.davoh.oauth2_twitch.presentation.RevokeAccessTokenViewModel
 import com.davoh.oauth2_twitch.presentation.RevokeAccessTokenViewModel.RevokeAccessTokenNavigation
 import com.davoh.oauth2_twitch.presentation.RevokeAccessTokenViewModel.RevokeAccessTokenNavigation.*
@@ -40,6 +43,9 @@ class TopGamesFragment : Fragment() {
     private lateinit var accessTokenComponent: AccessTokenComponent
     private val revokeAccessTokenViewModel: RevokeAccessTokenViewModel by lazy {
         getViewModel { accessTokenComponent.revokeAccessTokenViewModel }
+    }
+    private val refreshAccessTokenViewModel: RefreshAccessTokenViewModel by lazy {
+        getViewModel { accessTokenComponent.refreshAccessTokenViewModel }
     }
 
     private val adapter = TopGamesAdapter()
@@ -69,8 +75,8 @@ class TopGamesFragment : Fragment() {
         accessTokenComponent = (requireActivity().applicationContext as MainApplication).appComponent.inject(AccessTokenModule())
 
         topGamesListViewModel.events.observe(viewLifecycleOwner, Observer(this::validateTopGamesEvents))
-        revokeAccessTokenViewModel.events.observe(viewLifecycleOwner,Observer(this::validateAccessTokenEvents))
-
+        revokeAccessTokenViewModel.events.observe(viewLifecycleOwner,Observer(this::validateRevokeAccessTokenEvents))
+        refreshAccessTokenViewModel.events.observe(viewLifecycleOwner,Observer(this::validateRefreshAccessTokenEvents))
         //RecyclerView
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rv.layoutManager = layoutManager
@@ -119,6 +125,9 @@ class TopGamesFragment : Fragment() {
                         "Error showTopGamesError-> ${error.message}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                    val refreshToken = sharedPref.getString(Constants.sharedPrefs_RefreshToken, "").toString()
+                    refreshAccessTokenViewModel.refreshToken("refresh_token",refreshToken,Constants.client_id,Constants.client_secret)
                 }
                 is ShowTopGamesList -> navigation.run{
                     lifecycleScope.launch{
@@ -144,7 +153,7 @@ class TopGamesFragment : Fragment() {
         }
     }
 
-    private fun validateAccessTokenEvents(event: Event<RevokeAccessTokenNavigation>?) {
+    private fun validateRevokeAccessTokenEvents(event: Event<RevokeAccessTokenNavigation>?) {
         event?.getContentIfNotHandled()?.let { navigation ->
             when (navigation) {
                 is ShowRevokeAccessTokenError-> navigation.run{
@@ -168,6 +177,34 @@ class TopGamesFragment : Fragment() {
                 }
                 is RevokeAccessTokenNavigation.ShowLoading->{
                     binding.swipeRefreshRv.isRefreshing = true
+                }
+            }
+        }
+    }
+
+    private fun validateRefreshAccessTokenEvents(event: Event<RefreshAccessTokenNavigation>?) {
+        event?.getContentIfNotHandled()?.let { navigation ->
+            when (navigation) {
+                is ShowRefreshAccessTokenError-> navigation.run{
+                    Toast.makeText(
+                        requireContext(),
+                        "Error Refreshing token-> ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is ShowRefreshAccessToken->navigation.run{
+                    val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                    sharedPref.edit{
+                        putString(Constants.sharedPrefs_AccessToken, token.accessToken)
+                        putString(Constants.sharedPrefs_RefreshToken, token.refreshToken)
+                        apply()
+                    }
+                }
+                is RefreshAccessTokenNavigation.HideLoading->{
+
+                }
+                is RefreshAccessTokenNavigation.ShowLoading->{
+
                 }
             }
         }

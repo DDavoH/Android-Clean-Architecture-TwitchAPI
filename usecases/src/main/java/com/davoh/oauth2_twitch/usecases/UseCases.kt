@@ -4,6 +4,7 @@ import com.davoh.oauth2_twitch.data.OAuth2TwitchRepository
 import com.davoh.oauth2_twitch.data.TopGamesRepository
 import com.davoh.oauth2_twitch.domain.AccessToken
 import com.davoh.oauth2_twitch.domain.Game
+import com.davoh.oauth2_twitch.domain.RefreshToken
 import com.davoh.oauth2_twitch.domain.TopGames
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -36,4 +37,14 @@ class RevokeAccessTokenUseCase(
 ){
     fun invoke(clientId: String, token:String) : Completable =
         oAuth2TwitchRepository.revokeToken(clientId, token)
+}
+
+class RefreshAccessTokenUseCase(
+    private val oAuth2TwitchRepository: OAuth2TwitchRepository
+){
+    fun invoke(grantType: String,
+               refreshToken:String,
+               clientId:String,
+               clientSecret:String):Single<RefreshToken> =
+        oAuth2TwitchRepository.refreshToken(grantType, refreshToken, clientId, clientSecret)
 }

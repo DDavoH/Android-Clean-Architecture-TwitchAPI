@@ -25,6 +25,15 @@ interface TwitchOAuth2Service {
         @Field("client_id") clientId: String,
         @Field("token") token: String
     ): Completable
+
+    @POST(ENDPOINT_OAUTH2)
+    @FormUrlEncoded
+    fun refreshToken(
+        @Field("grant_type") grantType: String,
+        @Field("refresh_token") refreshToken:String,
+        @Field("client_id") clientId:String,
+        @Field("client_secret") clientSecret:String
+    ): Single<RefreshTokenResponse>
 }
 
 interface TwitchTopGamesService {

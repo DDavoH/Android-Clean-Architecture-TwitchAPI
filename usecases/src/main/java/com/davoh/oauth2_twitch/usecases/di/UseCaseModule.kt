@@ -4,6 +4,7 @@ import com.davoh.oauth2_twitch.data.OAuth2TwitchRepository
 import com.davoh.oauth2_twitch.data.TopGamesRepository
 import com.davoh.oauth2_twitch.usecases.GetAccessTokenUseCase
 import com.davoh.oauth2_twitch.usecases.GetTopGamesUseCase
+import com.davoh.oauth2_twitch.usecases.RefreshAccessTokenUseCase
 import com.davoh.oauth2_twitch.usecases.RevokeAccessTokenUseCase
 import dagger.Module
 import dagger.Provides
@@ -22,5 +23,9 @@ class UseCaseModule {
     @Provides
     fun revokeAccessTokenUseCaseProvider(oAuth2TwitchRepository: OAuth2TwitchRepository) =
         RevokeAccessTokenUseCase(oAuth2TwitchRepository)
+
+    @Provides
+    fun refreshAccessTokenUseCaseProvider(oAuth2TwitchRepository: OAuth2TwitchRepository) =
+        RefreshAccessTokenUseCase(oAuth2TwitchRepository)
 
 }
