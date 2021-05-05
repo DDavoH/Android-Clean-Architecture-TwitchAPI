@@ -168,6 +168,7 @@ class TopGamesFragment : Fragment() {
                     sharedPref.edit{
                         putString(Constants.sharedPrefs_AccessToken, "")
                         putString(Constants.sharedPrefs_RefreshToken, "")
+                        putString(Constants.sharedPrefs_paginationCursor, "")
                         apply()
                     }
                     findNavController().navigate(R.id.action_topGamesFragment_to_loginFragment)
@@ -197,6 +198,7 @@ class TopGamesFragment : Fragment() {
                     sharedPref.edit{
                         putString(Constants.sharedPrefs_AccessToken, token.accessToken)
                         putString(Constants.sharedPrefs_RefreshToken, token.refreshToken)
+                        putString(Constants.sharedPrefs_paginationCursor, "")
                         apply()
                     }
                 }

@@ -53,6 +53,7 @@ class TopGamesListViewModel(
                     if (topgames.gameList.size < PAGE_SIZE) {
                         isLastPage = true
                     }
+                    isLastPage = false
                     hideLoading()
                     _events.value = Event(ShowTopGamesList(topgames))
                 }, { error ->
