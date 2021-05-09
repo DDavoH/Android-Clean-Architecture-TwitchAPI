@@ -34,7 +34,8 @@ import com.davoh.oauth2_twitch.utils.getViewModel
 
 class TopGamesFragment : Fragment() {
 
-    private lateinit var binding : FragmentTopGamesBinding
+    private var _binding : FragmentTopGamesBinding?= null
+    private val binding get() = _binding!!
 
     private lateinit var topGamesComponent: TopGamesComponent
     private val topGamesListViewModel: TopGamesListViewModel by lazy {
@@ -65,8 +66,8 @@ class TopGamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       binding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_top_games)
-        return inflater.inflate(R.layout.fragment_top_games, container, false)
+        _binding = DataBindingUtil.inflate(LayoutInflater.from(requireContext()),R.layout.fragment_top_games,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -169,7 +170,7 @@ class TopGamesFragment : Fragment() {
                         putString(Constants.sharedPrefs_AccessToken, "")
                         putString(Constants.sharedPrefs_RefreshToken, "")
                         putString(Constants.sharedPrefs_paginationCursor, "")
-                        apply()
+                        commit()
                     }
                     findNavController().navigate(R.id.action_topGamesFragment_to_loginFragment)
                 }
@@ -210,6 +211,11 @@ class TopGamesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
