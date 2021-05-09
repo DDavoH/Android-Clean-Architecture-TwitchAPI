@@ -2,10 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
-      <module name="OAuth2_Twitch.app" target="1.8" />
-      <module name="OAuth2_Twitch.data" target="1.8" />
-      <module name="OAuth2_Twitch.framework.requestmanager" target="1.8" />
-      <module name="OAuth2_Twitch.usecases" target="1.8" />
+      <module name="OAuth2_Twitch.app" target="11" />
+      <module name="OAuth2_Twitch.data" target="11" />
+      <module name="OAuth2_Twitch.framework.requestmanager" target="11" />
+      <module name="OAuth2_Twitch.usecases" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

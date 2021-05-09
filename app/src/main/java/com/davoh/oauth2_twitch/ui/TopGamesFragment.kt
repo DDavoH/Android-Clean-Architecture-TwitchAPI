@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,8 +33,8 @@ import kotlinx.coroutines.launch
 import com.davoh.oauth2_twitch.utils.getViewModel
 
 class TopGamesFragment : Fragment() {
-    private var _binding : FragmentTopGamesBinding?=null
-    private val binding get() = _binding!!
+
+    private lateinit var binding : FragmentTopGamesBinding
 
     private lateinit var topGamesComponent: TopGamesComponent
     private val topGamesListViewModel: TopGamesListViewModel by lazy {
@@ -64,8 +65,8 @@ class TopGamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTopGamesBinding.inflate(inflater,container,false)
-        return binding.root
+       binding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_top_games)
+        return inflater.inflate(R.layout.fragment_top_games, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -132,7 +133,6 @@ class TopGamesFragment : Fragment() {
                 is ShowTopGamesList -> navigation.run{
                     lifecycleScope.launch{
                         val listGames = adapter.currentList.toMutableList()
-                        //listGames.removeLastOrNull()
                         listGames.addAll(topGames.gameList)
                         adapter.submitList(listGames)
                         val sharedPref = requireContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
@@ -212,8 +212,4 @@ class TopGamesFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

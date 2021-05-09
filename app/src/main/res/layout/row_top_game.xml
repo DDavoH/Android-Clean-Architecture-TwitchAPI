@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvName"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imgGame"
-        app:layout_constraintStart_toStartOf="@id/imgGame"
-        app:layout_constraintEnd_toEndOf="@id/imgGame"
-        android:text="game name"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        />
+        android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/imgGame"
-        android:layout_width="144dp"
-        android:layout_height="192dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imgGame"
+            app:layout_constraintStart_toStartOf="@id/imgGame"
+            app:layout_constraintEnd_toEndOf="@id/imgGame"
+            android:text="game name"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp" />
+
+        <ImageView
+            android:id="@+id/imgGame"
+            android:layout_width="144dp"
+            android:layout_height="192dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

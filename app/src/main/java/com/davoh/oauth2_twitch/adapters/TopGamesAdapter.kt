@@ -2,19 +2,20 @@ package com.davoh.oauth2_twitch.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.davoh.oauth2_twitch.R
 import com.davoh.oauth2_twitch.databinding.RowTopGameBinding
 import com.davoh.oauth2_twitch.domain.Game
-
 
 class TopGamesAdapter : ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback())  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(
-            RowTopGameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_top_game,parent, false)
         )
     }
 
