@@ -8,29 +8,27 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.davoh.oauth2_twitch.ui.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_topGamesFragment"
             app:destination="@id/topGamesFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
 
-        <fragment
-            android:id="@+id/topGamesFragment"
-            android:name="com.davoh.oauth2_twitch.ui.TopGamesFragment"
-            android:label="fragment_top_games"
-            tools:layout="@layout/fragment_top_games" >
-            <action
-                android:id="@+id/action_topGamesFragment_to_loginFragment"
-                app:launchSingleTop="true"
-                app:destination="@id/loginFragment"
-                app:popUpTo="@+id/nav_graph"
-                app:popUpToInclusive="true"
-                />
-        </fragment>
+    <fragment
+        android:id="@+id/topGamesFragment"
+        android:name="com.davoh.oauth2_twitch.ui.TopGamesFragment"
+        android:label="Top Games"
+        tools:layout="@layout/fragment_top_games">
+        <action
+            android:id="@+id/action_topGamesFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
