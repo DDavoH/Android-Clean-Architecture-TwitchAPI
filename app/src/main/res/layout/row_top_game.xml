@@ -18,9 +18,12 @@
             app:layout_constraintTop_toBottomOf="@id/imgGame"
             app:layout_constraintStart_toStartOf="@id/imgGame"
             app:layout_constraintEnd_toEndOf="@id/imgGame"
-            android:text="game name"
+            android:text="game name largue pds asdasdasd"
             android:textSize="18sp"
             android:textColor="@color/black"
+            android:maxLines="1"
+            android:maxEms="7"
+            android:ellipsize="end"
             android:layout_marginTop="5dp" />
 
         <ImageView
