@@ -52,6 +52,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
+                tools:listitem="@layout/row_top_game"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintTop_toBottomOf="@id/btnLogOut" />
