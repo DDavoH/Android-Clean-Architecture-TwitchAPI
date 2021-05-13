@@ -68,6 +68,11 @@ ext{
     rxJavaLib = 'io.reactivex.rxjava3:rxjava:3.0.0'
     retrofitAdapterRxJavaLib = 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
+    //Room
+    roomCompiler = "androidx.room:room-compiler:2.2.5"
+    roomLib = "androidx.room:room-runtime:2.2.5"
+    roomRxJavaLib = "androidx.room:room-rxjava2:2.2.5"
+
     //CustomTabs
     browserLib = "androidx.browser:browser:1.3.0"
 

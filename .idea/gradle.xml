@@ -15,12 +15,12 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/framework" />
+            <option value="$PROJECT_DIR$/framework/databasemanager" />
             <option value="$PROJECT_DIR$/framework/requestmanager" />
             <option value="$PROJECT_DIR$/usecases" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
