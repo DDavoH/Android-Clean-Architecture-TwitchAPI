@@ -7,7 +7,7 @@ fun TopGamesResponse.toDomainGameList(): List<Game> = this.gameList.toDomainGame
 fun List<GameResponse>.toDomainGameList(): List<Game> = this.map {
     val stringValue = it.boxArtUtl
     val urlImage = stringValue.replace("{width}x{height}","144x192")
-    Game(it.id, it.name, urlImage)
+    Game(it.id, it.name, false,urlImage)
 }
 
 fun AccessTokenResponse.toDomainAccessToken(): AccessToken =
@@ -17,7 +17,7 @@ fun TopGamesResponse.toDomainTopGames(): TopGames {
     val topGameList = gameList.map{
         val stringValue = it.boxArtUtl
         val urlImage = stringValue.replace("{width}x{height}","144x192")
-        Game(it.id,it.name,urlImage)
+        Game(it.id,it.name,false, urlImage)
     }
     val paginationDomain = Pagination(pagination.cursor)
     return TopGames(topGameList,paginationDomain)

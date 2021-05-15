@@ -4,6 +4,6 @@ import com.davoh.oauth2_twitch.domain.Game
 
 fun List<GameEntity>.toGameDomainList() = map(GameEntity::toGameDomain)
 
-fun GameEntity.toGameDomain() = Game(id, name, urlImage)
+fun GameEntity.toGameDomain() = Game(id, name, true, urlImage)
 
 fun Game.toGameEntity()= GameEntity(id,name, urlImage)

@@ -8,6 +8,7 @@ data class TopGames(
 data class Game (
     val id:Int,
     val name:String,
+    val isFavorite:Boolean,
     val urlImage:String
 )
 

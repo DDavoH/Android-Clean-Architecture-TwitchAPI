@@ -1,5 +1,6 @@
 package com.davoh.oauth2_twitch.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -30,6 +31,10 @@ class TopGamesAdapter : ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback(
             binding.tvName.text = item.name
             binding.btnFav.setOnClickListener {
                 listener?.onFavoriteBtnClick(item)
+            }
+            when(item.isFavorite){
+                true-> binding.btnFav.setImageResource(R.drawable.ic_favorite)
+                false -> binding.btnFav.setImageResource(R.drawable.ic_no_favorite)
             }
             Glide.with(binding.root).load(item.urlImage).into(binding.imgGame)
         }
