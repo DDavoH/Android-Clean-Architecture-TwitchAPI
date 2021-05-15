@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvRecommendedGames"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_favorite_games"
             android:layout_marginTop="5dp"
             >
 
@@ -58,6 +58,29 @@
                 app:layout_constraintTop_toBottomOf="@id/btnLogOut" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/tv_favorite_games"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorite games"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_favorite_games"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_favorite_games"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:listitem="@layout/row_top_game"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/swipeRefreshRv"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

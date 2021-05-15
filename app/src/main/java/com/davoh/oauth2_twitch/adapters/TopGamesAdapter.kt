@@ -13,6 +13,8 @@ import com.davoh.oauth2_twitch.domain.Game
 
 class TopGamesAdapter : ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback())  {
 
+    private var listener: OnItemClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_top_game,parent, false)
@@ -26,8 +28,18 @@ class TopGamesAdapter : ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback(
     inner class ItemViewHolder(private val binding: RowTopGameBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Game) {
             binding.tvName.text = item.name
+            binding.btnFav.setOnClickListener {
+                listener?.onFavoriteBtnClick(item)
+            }
             Glide.with(binding.root).load(item.urlImage).into(binding.imgGame)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onFavoriteBtnClick(game: Game)
+    }
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 }
 

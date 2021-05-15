@@ -36,16 +36,14 @@ class FavoriteGamesViewModel(
         disposable.clear()
     }
 
-    fun getAllFavoriteGames(){
-        disposable.add(
-            getAllFavoriteGameUseCase
-                .invoke()
-                .subscribe({favoriteGameList->
-                    _events.value = Event(ShowFavoriteGameList(favoriteGameList))
-                }, {error->
-                    _events.value = Event(ShowFavoriteGameListError(error))
-                })
-        )
+    fun onFavoriteGameList(favoriteGameList: List<Game>) {
+        if (favoriteGameList.isEmpty()) {
+            _events.value = Event(ShowFavoriteGameList(emptyList()))
+            _events.value = Event(ShowEmptyGameListMessage)
+            return
+        }
+
+        _events.value = Event(ShowFavoriteGameList(favoriteGameList))
     }
 
     fun updateFavoriteGameStatus(game:Game){
@@ -74,8 +72,8 @@ class FavoriteGamesViewModel(
     }
 
     sealed class FavoriteGamesNavigation{
-        data class ShowFavoriteGameListError(val error: Throwable) : FavoriteGamesNavigation()
         data class ShowFavoriteGameList(val favoriteGames:List<Game>) : FavoriteGamesNavigation()
+        object ShowEmptyGameListMessage : FavoriteGamesNavigation()
         object UpdatedFavoriteGame : FavoriteGamesNavigation()
         object UpdateFavoriteGameError :FavoriteGamesNavigation()
     }
