@@ -44,6 +44,7 @@ dependencies {
     implementation project(":data")
     implementation project(":usecases")
     implementation project(":framework:requestmanager")
+    implementation project(":framework:databasemanager")
 
     implementation kotlinLib
     implementation ktxLib

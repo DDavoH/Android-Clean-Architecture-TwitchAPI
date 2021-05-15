@@ -21,6 +21,24 @@ class GetTopGamesUseCase (
         topGamesRepository.getTopGames(authHeader,clientId, after,before,first)
 }
 
+class GetAllFavoriteGameUseCase(
+    private val topGamesRepository: TopGamesRepository
+){
+    fun invoke() = topGamesRepository.getAllFavoriteGames()
+}
+
+class GetFavoriteGameStatusUseCase(
+    private val topGamesRepository: TopGamesRepository
+){
+    fun invoke(gameId:Int) = topGamesRepository.getFavoriteGameStatus(gameId)
+}
+
+class UpdateFavoriteGameStatusUseCase(
+    private val topGamesRepository: TopGamesRepository
+){
+    fun invoke(game:Game) = topGamesRepository.updateFavoriteGameStatus(game)
+}
+
 class GetAccessTokenUseCase(
     private val oAuth2TwitchRepository: OAuth2TwitchRepository
 ){

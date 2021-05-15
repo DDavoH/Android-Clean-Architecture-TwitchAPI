@@ -1,9 +1,12 @@
 package com.davoh.oauth2_twitch.data
 
 import com.davoh.oauth2_twitch.domain.AccessToken
+import com.davoh.oauth2_twitch.domain.Game
 import com.davoh.oauth2_twitch.domain.RefreshToken
 import com.davoh.oauth2_twitch.domain.TopGames
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 interface RemoteTopGamesDataSource{
@@ -28,4 +31,10 @@ interface RemoteOAuth2TwitchDataSource{
                      refreshToken:String,
                      clientId:String,
                      clientSecret:String):Single<RefreshToken>
+}
+
+interface LocalGameDataSource{
+    fun getAllFavoriteGames(): Flowable<List<Game>>
+    fun getFavoriteGameStatus(gameId:Int) : Maybe<Boolean>
+    fun updateGameStatus(game:Game) : Maybe<Boolean>
 }

@@ -1,9 +1,6 @@
 package com.davoh.oauth2_twitch.data.di
 
-import com.davoh.oauth2_twitch.data.OAuth2TwitchRepository
-import com.davoh.oauth2_twitch.data.RemoteOAuth2TwitchDataSource
-import com.davoh.oauth2_twitch.data.RemoteTopGamesDataSource
-import com.davoh.oauth2_twitch.data.TopGamesRepository
+import com.davoh.oauth2_twitch.data.*
 import dagger.Module
 import dagger.Provides
 
@@ -12,8 +9,9 @@ class RepositoryModule {
 
     @Provides
     fun providesTopGamesRepository(
-        remoteTopGamesDataSource: RemoteTopGamesDataSource
-    ) = TopGamesRepository(remoteTopGamesDataSource)
+        remoteTopGamesDataSource: RemoteTopGamesDataSource,
+        localGameDataSource: LocalGameDataSource
+    ) = TopGamesRepository(remoteTopGamesDataSource, localGameDataSource)
 
     @Provides
     fun providesOAuth2TwitchRepository(
